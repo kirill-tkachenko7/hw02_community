@@ -7,19 +7,13 @@ class PostAdmin(admin.ModelAdmin):
     """ Customise display of Posts in Django Admin """
 
     # display id, text, publication date, author and group
-    list_display = ("pk", "text", "pub_date", "related_author", "related_group")
+    list_display = ("pk", "text", "pub_date", "author", "related_group")
     # allow search by text
     search_fields = ("text",)
     # allow filter by publication date
     list_filter = ("pub_date",)
-    
-    # change display text of author in Posts list view
-    def related_author(self, obj):
-        return "({}) {} {}".format(obj.author.username, 
-                                   obj.author.first_name, 
-                                   obj.author.last_name)
-    # column title = "author"
-    related_author.short_description = "author"
+    # replace all empty values with "-пусто-"
+    empty_value_display = "-пусто-"
 
     # change display text of group in Posts list view
     def related_group(self, obj):
@@ -28,7 +22,7 @@ class PostAdmin(admin.ModelAdmin):
             return "(id:{}) {}".format(obj.group.id, obj.group.title)
         else:
             # if post does not belong to any group, show "-пусто-"
-            return "-пусто-"
+            return self.empty_value_display
     # set column title = "group"
     related_group.short_description = "group"
     

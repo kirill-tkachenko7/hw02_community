@@ -5,8 +5,8 @@ User = get_user_model()
 
 
 class Group(models.Model):
-    # Group name. Max length set to 50 characters to be able to use it as a slug. 
-    title = models.CharField(max_length=50)
+    # Group name
+    title = models.CharField(max_length=200)
 
     # Part of the URL of the group (/group/<slug>). 
     # Must be unique and should be indexed for faster search in db
@@ -20,7 +20,7 @@ class Group(models.Model):
 
 class Post(models.Model):
     # Content of the post
-    text = models.CharField(max_length=2000)
+    text = models.TextField(max_length=2000, blank=True, null=True)
 
     # Date of post publication, default = now
     pub_date = models.DateTimeField(
