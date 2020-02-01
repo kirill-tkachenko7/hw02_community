@@ -9,8 +9,8 @@ class Group(models.Model):
     title = models.CharField(max_length=200)
 
     # Part of the URL of the group (/group/<slug>). 
-    # Must be unique and should be indexed for faster search in db
-    slug = models.SlugField(unique=True, db_index=True, allow_unicode=True)
+    # Must be unique
+    slug = models.SlugField(unique=True, allow_unicode=True)
 
     # Description of the group (more detailed than a title).
     # Max length not limited, we rely on our admins' 
@@ -20,7 +20,7 @@ class Group(models.Model):
 
 class Post(models.Model):
     # Content of the post
-    text = models.TextField(max_length=2000, blank=True, null=True)
+    text = models.TextField()
 
     # Date of post publication, default = now
     pub_date = models.DateTimeField(
